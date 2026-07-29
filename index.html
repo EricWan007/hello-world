@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>扫雷游戏</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    user-select: none;
+  }
+
+  h1 {
+    color: #fff;
+    margin-bottom: 16px;
+    letter-spacing: 4px;
+    text-shadow: 0 2px 6px rgba(0,0,0,.35);
+  }
+
+  .panel {
+    background: #f0f0f0;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.4);
+  }
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .counter {
+    background: #222;
+    color: #ff3b30;
+    font-family: "Courier New", monospace;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 6px;
+    min-width: 74px;
+    text-align: center;
+  }
+
+  #resetBtn {
+    font-size: 26px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 8px;
+    background: #ffd54f;
+    cursor: pointer;
+    transition: transform .1s;
+  }
+  #resetBtn:active { transform: scale(.9); }
+
+  select {
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #bbb;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  #board {
+    display: grid;
+    gap: 2px;
+    background: #999;
+    padding: 4px;
+    border-radius: 6px;
+  }
+
+  .cell {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    background: linear-gradient(145deg, #cfcfcf, #ababab);
+    border: 2px outset #ddd;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+
+  .cell.revealed {
+    background: #e4e4e4;
+    border: 1px solid #c2c2c2;
+    cursor: default;
+  }
+
+  .cell.mine { background: #ff6b6b; }
+  .cell.exploded { background: #d63031; }
+  .cell.wrong-flag { background: #ffb74d; }
+
+  .n1 { color: #1976d2; } .n2 { color: #388e3c; }
+  .n3 { color: #d32f2f; } .n4 { color: #7b1fa2; }
+  .n5 { color: #b71c1c; } .n6 { color: #00838f; }
+  .n7 { color: #212121; } .n8 { color: #616161; }
+
+  #message {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    min-height: 26px;
+  }
+  #message.win  { color: #2e7d32; }
+  #message.lose { color: #c62828; }
+
+  .tips { color: rgba(255,255,255,.75); margin-top: 14px; font-size: 13px; }
+</style>
+</head>
+<body>
+  <h1>💣 扫雷</h1>
+  <div class="panel">
+    <div class="toolbar">
+      <div class="counter" id="mineCounter">010</div>
+      <button id="resetBtn" title="重新开始">🙂</button>
+      <div class="counter" id="timer">000</div>
+      <select id="difficulty">
+        <option value="easy">初级 9×9 / 10雷</option>
+        <option value="medium">中级 16×16 / 40雷</option>
+        <option value="hard">高级 16×30 / 99雷</option>
+      </select>
+    </div>
+    <div id="board"></div>
+    <div id="message"></div>
+  </div>
+  <p class="tips">左键翻开格子 · 右键插旗 🚩 · 首次点击必定安全</p>
+  <script src="minesweeper.js"></script>
+</body>
+</html>
